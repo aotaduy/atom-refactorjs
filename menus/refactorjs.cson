@@ -1,0 +1,26 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Rename variable'
+      'command': 'refactorjs:renameVariable'
+    }
+    {
+      'label': 'Extract Function'
+      'command': 'refactorjs:extractFunction'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'refactorjs'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'refactorjs:toggle'
+        }
+      ]
+    ]
+  }
+]
