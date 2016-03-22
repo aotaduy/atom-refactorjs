@@ -9,10 +9,6 @@ class ExtractFunctionDialog extends View
     @div class: 'extract', =>
       @label 'Extract to function: '
       @input name:'fun', placeholder: 'functionName', outlet: 'fun', value: name
-      @label 'Context '
-      @select name:'context', outlet: 'context', value: 'Local' , =>
-        @option 'Local', value: 'local'
-        @option 'File', value: 'file'
       @button 'Ok', click: 'onConfirm', class: 'post-btn btn', outlet: 'okButton', type:'submit'
       @button 'Cancel', click: 'destroy', class:'post-btn btn', outlet: 'cancelButton'
 
@@ -21,12 +17,10 @@ class ExtractFunctionDialog extends View
     oldView = this
     @callback = fun
     @fun.val(name)
-    #@okButton.on 'click', => @onConfirm()
-    #@cancelButton.on 'click', => @destroy()
     @panel = atom.workspace.addBottomPanel(item: this)
 
   onConfirm:(text) ->
-    @callback(@fun.val(), @context.val())
+    @callback(@fun.val())
     @destroy()
 
   destroy: ->
