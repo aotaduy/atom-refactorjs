@@ -1,5 +1,7 @@
 RefactoringEngine = require './refactoring-engine'
 RenameDialog = require './rename-view'
+ExtractFunctionDialog = require './extractFunction-view'
+RefactoringContext = require './refactoringContext'
 
 {CompositeDisposable} = require 'atom'
 
@@ -25,14 +27,7 @@ module.exports = Refactorjs =
     console.log 'Refactorjs was toggled!'
 
   getContext:->
-    editor = atom.workspace.getActiveTextEditor()
-    bufferPositionRange = editor.getSelectedBufferRange()
-    context =
-      selected: editor.getSelectedText()
-      text: editor.getText()
-      positionStart: editor.getBuffer().characterIndexForPosition(bufferPositionRange.start)
-      positionEnd: editor.getBuffer().characterIndexForPosition(bufferPositionRange.end)
-    return context
+    return new RefactoringContext(atom.workspace.getActiveTextEditor())
 
   renameVariable: ->
     editor = atom.workspace.getActiveTextEditor()
@@ -40,8 +35,11 @@ module.exports = Refactorjs =
     editor.selectToEndOfWord()
     context = @getContext()
     toDialog = new RenameDialog(((to, locality)->
-      modifiedText = RefactoringEngine.renameVariable(to, context)
+      modifiedText = RefactoringEngine.renameVariable(to, context, locality)
       atom.workspace.getActiveTextEditor().setText(modifiedText)), context.selected)
 
   extractFunction: ->
-    RefactoringEngine.extractFunction 'newName', @getContext()
+    context = @getContext()
+    new ExtractFunctionDialog(((to, locality)->
+      modifiedText = RefactoringEngine.extractFunction to, context
+      atom.workspace.getActiveTextEditor().setText(modifiedText)), 'newFunc')
