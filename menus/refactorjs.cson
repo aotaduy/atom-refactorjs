@@ -1,14 +1,26 @@
 # See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
 'context-menu':
   'atom-text-editor': [
+    { 'type' : 'separator' }
     {
-      'label': 'Rename variable'
-      'command': 'refactorjs:renameVariable'
+      'label' : 'Refactorings'
+      'submenu': [
+        {
+          'label': 'Rename Var/Param'
+          'command': 'refactorjs:renameVariable'
+        }
+        {
+          'label': 'Extract Function'
+          'command': 'refactorjs:extractFunction'
+        }
+        {
+          'label': 'Inline Function'
+          'command': 'refactorjs:inlineFunction'
+        }
+      ]
     }
-    {
-      'label': 'Extract Function'
-      'command': 'refactorjs:extractFunction'
-    }
+    { 'type' : 'separator' }
+
   ]
 'menu': [
   {
@@ -17,8 +29,16 @@
       'label': 'refactorjs'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'refactorjs:toggle'
+          'label': 'Rename variable'
+          'command': 'refactorjs:renameVariable'
+        }
+        {
+          'label': 'Extract Function'
+          'command': 'refactorjs:extractFunction'
+        }
+        {
+          'label': 'Inline Function'
+          'command': 'refactorjs:inlineFunction'
         }
       ]
     ]

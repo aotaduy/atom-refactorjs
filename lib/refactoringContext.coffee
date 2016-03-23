@@ -19,4 +19,4 @@ class RefactoringContext
     "#{begining}\n#{string}\n#{end}"
 
   getFunctionScope: ->
-    engine.findScopeContaining @positionStart, @scopeAnalysis.currentScope
+    @functionScope = @functionScope || engine.findScopeContaining @positionStart, @scopeAnalysis.currentScope
